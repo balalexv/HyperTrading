@@ -1,16 +1,12 @@
-# This is a sample Python script.
+from datetime import datetime, timedelta
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from utils.utils import get_token, get_link, cast_money, get_history_all_time, get_folder
+from tinkoff.invest import Client
+from tinkoff.invest.schemas import CandleInterval
+from tinkoff.invest import Client, RequestError, CandleInterval, HistoricCandle
 
+figi = 'BBG0013HJJ31'
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+df = get_history_all_time(figi = figi, token=get_token())
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+df.to_csv(get_folder() + figi + '.csv', index = False)
